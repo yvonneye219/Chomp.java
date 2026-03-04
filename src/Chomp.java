@@ -22,8 +22,8 @@ public class Chomp implements Runnable, MouseListener {
     //Variable Definition Section
     //Declare the variables used in the program
     //You can set their initial values too
-
     //Sets the width and height of the program window
+
     final int WIDTH = 1000;
     final int HEIGHT = 800;
 
