@@ -2,34 +2,72 @@ public class MyChomp {
 
     public static void main(String[] args) {
 
-        for (int r1 = 1; r1 <= 3; r1++) {
-            for (int r2 = 0; r2 <= r1; r2++) {
-                for (int r3 = 0; r3 <= r2; r3++) {
+        for (int c1 = 1; c1 <= 3; c1++) {
+            for (int c2 = 0; c2 <= c1; c2++) {
+                for (int c3 = 0; c3 <= c2; c3++) {
 
-                    System.out.println("Board: (" + r1 + "," + r2 + "," + r3 + ")");
+                    boolean win = false;
 
-                    for (int row = 1; row <= 3; row++) {
+                    for (int col = 1; col <= 3; col++) {
 
-                        int rowLength = 0;
-                        if (row == 1) rowLength = r1;
-                        if (row == 2) rowLength = r2;
-                        if (row == 3) rowLength = r3;
+                        int height = 0;
+                        if (col == 1) height = c1;
+                        if (col == 2) height = c2;
+                        if (col == 3) height = c3;
 
-                        for (int col = 1; col <= rowLength; col++) {
+                        for (int row = 1; row <= height; row++) {
 
-                            int nr1 = r1;
-                            int nr2 = r2;
-                            int nr3 = r3;
+                            int nc1 = c1;
+                            int nc2 = c2;
+                            int nc3 = c3;
 
-                            if (row >= 1 && nr1 >= col) nr1 = col - 1;
-                            if (row >= 2 && nr2 >= col) nr2 = col - 1;
-                            if (row >= 3 && nr3 >= col) nr3 = col - 1;
+                            if (col <= 1 && nc1 >= row) nc1 = row - 1;
+                            if (col <= 2 && nc2 >= row) nc2 = row - 1;
+                            if (col <= 3 && nc3 >= row) nc3 = row - 1;
 
-                            if (nr2 > nr1) nr2 = nr1;
-                            if (nr3 > nr2) nr3 = nr2;
+                            if (nc2 > nc1) nc2 = nc1;
+                            if (nc3 > nc2) nc3 = nc2;
 
-                            if (!(nr1 == 0 && nr2 == 0 && nr3 == 0)) {
-                                System.out.println(" -> (" + nr1 + "," + nr2 + "," + nr3 + ")");
+                            if (!(nc1 == 0 && nc2 == 0 && nc3 == 0)) {
+
+
+                                // check if move leads to a lose board
+                                if ((nc1 == 1 && nc2 == 0 && nc3 == 0) ||
+                                        (nc1 == 2 && nc2 == 1 && nc3 == 0)) {
+                                    win = true;
+                                }
+                            }
+                        }
+                    }
+
+                    if (win)
+                        System.out.println("WIN  (" + c1 + "," + c2 + "," + c3 + ")");
+                    else
+                        System.out.println("LOSE (" + c1 + "," + c2 + "," + c3 + ")");
+
+
+                    for (int col = 1; col <= 3; col++) {
+
+                        int height = 0;
+                        if (col == 1) height = c1;
+                        if (col == 2) height = c2;
+                        if (col == 3) height = c3;
+
+                        for (int row = 1; row <= height; row++) {
+
+                            int nc1 = c1;
+                            int nc2 = c2;
+                            int nc3 = c3;
+
+                            if (col <= 1 && nc1 >= row) nc1 = row - 1;
+                            if (col <= 2 && nc2 >= row) nc2 = row - 1;
+                            if (col <= 3 && nc3 >= row) nc3 = row - 1;
+
+                            if (nc2 > nc1) nc2 = nc1;
+                            if (nc3 > nc2) nc3 = nc2;
+
+                            if (!(nc1 == 0 && nc2 == 0 && nc3 == 0)) {
+                                System.out.println(" -> (" + nc1 + "," + nc2 + "," + nc3 + ")");
                             }
                         }
                     }
