@@ -2,9 +2,17 @@ public class MyChomp {
 
     public static void main(String[] args) {
 
+        boolean[][][] lose = new boolean[4][4][4];
+
         for (int c1 = 1; c1 <= 3; c1++) {
             for (int c2 = 0; c2 <= c1; c2++) {
                 for (int c3 = 0; c3 <= c2; c3++) {
+
+                    if (c1 == 1 && c2 == 0 && c3 == 0) {
+                        System.out.println("LOSE (" + c1 + "," + c2 + "," + c3 + ")");
+                        System.out.println();
+                        continue;
+                    }
 
                     boolean win = false;
 
