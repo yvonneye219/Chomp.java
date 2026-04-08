@@ -4,49 +4,65 @@ public class MyPlayer {
     public Chip[][] gameBoard;
     public int[] columns;
 
-
-
     public MyPlayer() {
-        columns = new int[10];
-
-        /***
-         * This code will run just once, when the game opens.
-         * Add your code here.
-         */
+        columns = new int[3];
     }
 
     public Point move(Chip[][] pBoard) {
-
         System.out.println("MyPlayer Move");
 
         gameBoard = pBoard;
-        int rows = gameBoard.length;
-        int cols = gameBoard[0].length;
 
-        for (int c = 0; c < cols; c++) {
+        // Count chips in each column
+        for (int c = 0; c < 3; c++) {
             int count = 0;
-
-            for (int r = 0; r < rows; r++) {
+            for (int r = 0; r < 3; r++) {
                 if (gameBoard[r][c] != null) {
                     count++;
                 }
             }
-
             columns[c] = count;
         }
 
-        int row = 1;
-        int column = 1;
+        int c1 = columns[0];
+        int c2 = columns[1];
+        int c3 = columns[2];
 
+        // Try every possible move
+        for (int col = 1; col <= 3; col++) {
+            int height = 0;
+            if (col == 1) height = c1;
+            if (col == 2) height = c2;
+            if (col == 3) height = c3;
 
-        /***
-         * This code will run each time the "MyPlayer" button is pressed.
-         * Add your code to return the row and the column of the chip you want to take.
-         * You'll be returning a data type called Point which consists of two integers.
-         */
+            for (int row = 1; row <= height; row++) {
+                int nc1 = c1;
+                int nc2 = c2;
+                int nc3 = c3;
 
-        Point myMove = new Point(row, column);
-        return myMove;
+                if (col <= 1 && nc1 >= row) nc1 = row - 1;
+                if (col <= 2 && nc2 >= row) nc2 = row - 1;
+                if (col <= 3 && nc3 >= row) nc3 = row - 1;
+
+                if (nc2 > nc1) nc2 = nc1;
+                if (nc3 > nc2) nc3 = nc2;
+
+                if ((nc1 == 1 && nc2 == 0 && nc3 == 0) ||
+                        (nc1 == 2 && nc2 == 1 && nc3 == 0)) {
+                    System.out.println("Winning move: col=" + (col - 1) + " row=" + (row - 1));
+                    return new Point(col - 1, row - 1);
+                }
+            }
+        }
+
+        // Fallback: first legal move
+        for (int c = 0; c < 3; c++) {
+            if (columns[c] > 0) {
+                System.out.println("Fallback move: col=" + c + " row=" + (columns[c] - 1));
+                return new Point(c, columns[c] - 1);
+            }
+        }
+
+        return new Point(0, 0);
     }
-
 }
