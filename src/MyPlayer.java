@@ -4,6 +4,8 @@ public class MyPlayer {
     public Chip[][] gameBoard;
     public int[] columns;
 
+
+
     public MyPlayer() {
         columns = new int[10];
 
@@ -18,11 +20,24 @@ public class MyPlayer {
         System.out.println("MyPlayer Move");
 
         gameBoard = pBoard;
-        int column = 0;
-        int row = 0;
+        int rows = gameBoard.length;
+        int cols = gameBoard[0].length;
 
-        row = 1;
-        column = 1;
+        for (int c = 0; c < cols; c++) {
+            int count = 0;
+
+            for (int r = 0; r < rows; r++) {
+                if (gameBoard[r][c] != null) {
+                    count++;
+                }
+            }
+
+            columns[c] = count;
+        }
+
+        int row = 1;
+        int column = 1;
+
 
         /***
          * This code will run each time the "MyPlayer" button is pressed.
